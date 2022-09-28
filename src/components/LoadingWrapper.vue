@@ -20,21 +20,14 @@ import { Use, Set, Get } from "@/lib/test";
 import { useToggleSystem } from "@/systems";
 import { LoadingDisplayStateTypes } from "@/types";
 
-
-
 export default class LoadingWrapper extends Component() {
   @Set({ types: [useLoading, useDisplayStates<LoadingDisplayStateTypes>] })
-  private wrapperState!: useLoading & useDisplayStates<LoadingDisplayStateTypes>;
+  private wrapperState!: useLoading &
+    useDisplayStates<LoadingDisplayStateTypes>;
 
   @Use() private wrapperState2!: useToggleSystem;
 
   @Get() private wrapperState3!: useToggleSystem;
-
-  // @Prop({
-  //   type: Boolean,
-  //   default: false,
-  // })
-  // retry?: boolean;
 
   @Prop({
     type: Boolean,
@@ -48,6 +41,4 @@ export default class LoadingWrapper extends Component() {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

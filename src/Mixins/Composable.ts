@@ -20,6 +20,10 @@ export class Composable {
   constructor(eid: string) {
     this.eid = eid;
   }
+
+  // protected new(){
+  //   return new 
+  // }
 }
 
 // class _Composable<TComposable> {

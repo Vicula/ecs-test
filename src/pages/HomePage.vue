@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { Options } from "vue-class-component";
+import { defineComponent } from "vue";
 import { Page } from "@/Mixins";
 import { LoadingWrapper } from "@/components";
 
@@ -15,6 +16,12 @@ import { LoadingWrapper } from "@/components";
   components: { LoadingWrapper },
 })
 export default class HomePage extends Page {
-  mounted() {}
+  mounted() {
+  }
 }
 </script>
+<style scoped lang="scss">
+  h1{
+    @apply w-5;
+  }
+</style>
