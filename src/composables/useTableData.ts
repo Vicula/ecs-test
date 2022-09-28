@@ -1,9 +1,13 @@
 import { ref } from "vue";
+import { Composable } from "@/Mixins";
 
-export default class useDisplayStates<T> {
-  public state;
+export function useTableData() {
+  return class useTableData<T> extends Composable {
+    public state;
 
-  constructor(state: T) {
-    this.state = ref(state);
-  }
+    constructor(state: T) {
+      super("useTableData");
+      this.state = ref(state);
+    }
+  };
 }

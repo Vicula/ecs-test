@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { MaskUtils } from "../lib/ecs/MaskUtils";
+import { MaskUtils } from "../../lib/ecs/MaskUtils";
 
 interface Props {
   eid: string;
@@ -30,7 +30,7 @@ const styleobj = computed(() => {
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .entity {
   border-radius: 5px;
 }
