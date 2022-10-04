@@ -2,6 +2,13 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import HomePage from "@/pages/HomePage.vue";
 
+function lazyView(view: string) {
+  return () =>
+    import(
+      /* webpackChunkName: "lazy-view-[request]" */ `@/pages/${view}.vue`
+    );
+}
+
 export const routes = [
   {
     path: "/",

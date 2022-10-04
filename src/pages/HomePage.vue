@@ -1,27 +1,17 @@
 <template>
   <div id="home-page">
-    <LoadingWrapper>
-      <h1>Test</h1>
+    <LoadingWrapper ref="loadingRef">
+      <Test />
     </LoadingWrapper>
   </div>
 </template>
 
-<script lang="ts">
-import { Options } from "vue-class-component";
-import { defineComponent } from "vue";
-import { Page } from "@/Mixins";
-import { LoadingWrapper } from "@/components";
+<script setup lang="ts">
+import { LoadingWrapper, Test } from "@/components";
+import { ref, onMounted } from "vue";
 
-@Options({
-  components: { LoadingWrapper },
-})
-export default class HomePage extends Page {
-  mounted() {
-  }
-}
+const loadingRef = ref<InstanceType<typeof LoadingWrapper> | null>(null);
+onMounted(() => {
+  console.log(loadingRef.value?.error);
+});
 </script>
-<style scoped lang="scss">
-  h1{
-    @apply w-5;
-  }
-</style>
