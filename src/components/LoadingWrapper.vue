@@ -1,33 +1,58 @@
-<script default lang="ts">
+<script lang="ts">
 /**
 ==============================================================================
  * 
  * @module    LoadingWrapper
- * @brief   Wrapper component used to embed loading state functionality and
- *          fallback displays
+ * @brief     Wrapper component used to embed loading state functionality and
+ *            fallback displays
  * 
- ==============================================================================
- */
-export default defineComponent({});
+==============================================================================
+*/
+export default {};
 </script>
 
 <template>
-  <section v-if="error" class="loading-wrapper">
-    <span v-if="true">Retry</span>
+  <section ref="wrapper" v-if="error" class="loading-wrapper">
+    <span v-if="retry">Retry</span>
     <span v-else>{{ error }}</span>
   </section>
-  <section v-else>
-    <!-- <Suspense v-else> -->
+  <Suspense v-else>
     <slot />
-    <!-- <template #fallback>
-      <section class="loading-wrapper">loading...</section>
-    </template> -->
-    <!-- </Suspense> -->
-  </section>
+    <template #fallback>
+      <section class="loading-wrapper">
+        <Placeholder v-if="Placeholder" v-bind="{ [placeholderDataId]: '' }" />
+        <span v-else>Loading...</span>
+      </section>
+    </template>
+  </Suspense>
 </template>
 
 <script setup lang="ts">
-import { defineComponent, useSlots, ref, Ref, onErrorCaptured } from "vue";
+import {
+  useSlots,
+  ref,
+  onErrorCaptured,
+  type Ref,
+  type DefineComponent,
+  type ComponentPublicInstance,
+} from "vue";
+
+/**
+ * @props
+ ------------------------------------------------------------------------------
+ */
+
+export interface IProps {
+  retry?: boolean;
+  ssrOnly?: boolean;
+  whenIdle?: boolean;
+  whenVisible?: boolean | IntersectionObserverInit;
+  didHydrate?: () => void;
+  promise?: Promise<any>;
+  on?: (keyof HTMLElementEventMap)[] | keyof HTMLElementEventMap;
+}
+
+const props = defineProps<IProps>();
 
 /**
  * @consts
@@ -37,10 +62,10 @@ import { defineComponent, useSlots, ref, Ref, onErrorCaptured } from "vue";
 // const ViewA = defineAsyncComponent(() => import("./components/ViewA.vue"));
 const slots = useSlots(),
   defaultSlot = slots.default?.()[0],
-  skeleton = defaultSlot?.type.Skeleton,
+  slotType = defaultSlot?.type as DefineComponent | undefined,
+  Placeholder = slotType?.placeholder,
+  placeholderDataId: string = slotType?.__scopeId,
   error: Ref<Error | null> = ref(null);
-
-console.log();
 
 defaultSlot && !defaultSlot.dirs && (defaultSlot.dirs = []);
 
@@ -49,9 +74,13 @@ defaultSlot && !defaultSlot.dirs && (defaultSlot.dirs = []);
  ------------------------------------------------------------------------------
  */
 
-onErrorCaptured((err: Error) => {
-  error.value = err;
-});
+
+onErrorCaptured(
+  (err: Error, instance: ComponentPublicInstance | null, info: string) => {
+
+    error.value = err;
+  }
+);
 
 defineExpose({
   /**

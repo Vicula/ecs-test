@@ -1,31 +1,28 @@
-<script default lang="tsx">
+<script lang="tsx">
 /**
 ==============================================================================
- * 
+ *
  * @module    Test
  * @brief   Wrapper component used to embed loading state functionality and
  *          fallback displays
- * 
+ *
  ==============================================================================
  */
-export default defineComponent({
-  Skeleton: defineComponent({
-    name: "TestSkeleton",
-    render() {
-      return (
-        <div>
-          <AnimatedPlaceholder height="25px" width="100px" />
-          <AnimatedPlaceholder height="25px" width="100px" />
-          <AnimatedPlaceholder height="25px" width="100px" />
-        </div>
-      );
-    },
-  }),
-});
+export default {
+  placeholder: (
+    <div class="test-placeholder">
+      <AnimatedPlaceholder height="25px" width="100px" />
+      <br />
+      <AnimatedPlaceholder height="25px" width="100px" />
+      <br />
+      <AnimatedPlaceholder height="25px" width="100px" />
+    </div>
+  ),
+};
 </script>
 
 <template>
-  <div>
+  <div class="test">
     <p>my txt</p>
     <p>my txt</p>
     <p>my txt</p>
@@ -34,7 +31,17 @@ export default defineComponent({
 
 <script setup lang="tsx">
 import { AnimatedPlaceholder } from "@/components";
-import { defineComponent } from "vue";
+import { Utils } from "@/utils";
+
+await Utils.sleep(10000);
 
 defineExpose({});
 </script>
+
+<style lang="scss" scoped>
+.test,
+.test-placeholder {
+  color: blue;
+  background: goldenrod;
+}
+</style>

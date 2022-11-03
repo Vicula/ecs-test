@@ -2,7 +2,7 @@
   <div ref="wrapper" :style="{ display: 'contents' }" v-if="hydrated">
     <slot></slot>
   </div>
-  <div ref="wrapper" v-else></div>
+  <div ref="wrapper" v-else />
 </template>
 
 <script setup lang="ts">

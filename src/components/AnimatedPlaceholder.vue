@@ -1,14 +1,20 @@
+<script lang="ts">
+/**
+==============================================================================
+ * @module    AnimatedPlaceholder.vue
+ * @brief     Placeholder UI element used for rendering loading display states
+ *            as fallback for other UI elements
+==============================================================================
+ */
+export default {};
+</script>
+
 <template>
   <div class="placeholder" />
 </template>
 
 <script setup lang="ts">
-/**
- ==============================================================================
- * @file    AnimatedPlaceholder.vue
- * @brief   Placeholder UI element used for rendering loading display states as
- *          fallback for other UI elements
- ==============================================================================
+/** 
  * @props
  ------------------------------------------------------------------------------
  */
